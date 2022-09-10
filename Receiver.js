@@ -16,13 +16,16 @@ amqp.connect('amqp://localhost',(connError, connection)=>{
         channel.assertQueue(queue);
 
         //Receive Message
-        channel.consume(queue, (msg)=>{
-            console.log(`Message received: ${msg.content.toString()}`);
-        }, {
-            noAck: true
-        })
         setTimeout(()=>{
-            connection.close();
-        }, 1000);
+            channel.consume(queue, (msg)=>{
+                console.log(`Message received: ${msg.content.toString()}`);
+            }, {
+                noAck: true
+            })
+            setTimeout(()=>{
+                connection.close();
+            }, 5000);
+        }, 2000)
+        
     })
 })
