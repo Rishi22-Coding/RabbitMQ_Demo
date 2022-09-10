@@ -16,8 +16,10 @@ amqp.connect('amqp://localhost',(connError, connection)=>{
         channel.assertQueue(queue);
 
         //send messages to queue
-        channel.sendToQueue(queue, Buffer.from('hello RabbitMQ'));
-        console.log(`Your Message has been sent to ${queue} queue`);
+        for(let i=0; i<=100; i++){
+            channel.sendToQueue(queue, Buffer.from(`${i}`));
+            console.log(`Your Message has been sent to ${queue} queue`);
+        }
         setTimeout(()=>{
             connection.close();
         }, 1000);
